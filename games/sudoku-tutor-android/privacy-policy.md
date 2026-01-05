@@ -211,9 +211,9 @@ We may update this policy periodically. Changes will be:
 
 ### 13. Contact Information
 
-**Developer:** Jon Caldwell
+**Developer:** Caldwell Software
 **Email:** codepoetry.jc@gmail.com
-**Address:** P.O. Box 999, Valparaiso, IN 46383
+**Address:** 89 Caper Ln, Valparaiso, IN 46383
 
 For privacy-specific inquiries, use subject line: "Privacy Inquiry - Sudoku Tutor"
 
