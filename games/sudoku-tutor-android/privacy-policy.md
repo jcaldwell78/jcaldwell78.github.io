@@ -1,8 +1,8 @@
 # Privacy Policy
 
 **Sudoku Tutor**
-**Last Updated:** December 2024
-**Effective Date:** December 2024
+**Last Updated:** December 2025
+**Effective Date:** December 2025
 
 ---
 
