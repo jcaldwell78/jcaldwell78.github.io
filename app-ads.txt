@@ -147,3 +147,4 @@ zmaticoo.com, 5135195, RESELLER
 sharethrough.com, UvcAx8IL, RESELLER, d53b998a7bd4ecd2
 rubiconproject.com, 13380, RESELLER, 0bfd66d529a55807
 
+facebook.com, 1627459995170627, DIRECT, c3e20eee3f780d68
