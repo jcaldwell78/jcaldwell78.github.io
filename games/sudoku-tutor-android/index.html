@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sudoku Tutor — Shared Puzzle</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a; color: #e2e8f0; text-align: center; padding: 24px;
+    }
+    main { max-width: 28rem; }
+    h1 { font-size: 1.6rem; margin: 0 0 0.5rem; }
+    p { margin: 0.5rem 0; line-height: 1.5; color: #94a3b8; }
+    a.button {
+      display: inline-block; margin-top: 1.25rem; padding: 0.75rem 1.25rem; border-radius: 999px;
+      background: #38bdf8; color: #0f172a; font-weight: 600; text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Sudoku Tutor</h1>
+    <p id="msg">Opening your puzzle…</p>
+    <p><a id="storeLink" class="button" href="#">Get Sudoku Tutor on Google Play</a></p>
+  </main>
+  <script>
+    (function () {
+      var PACKAGE = "com.github.jcaldwell78.sudoku";
+      var STORE = "https://play.google.com/store/apps/details?id=" + PACKAGE;
+      var code = new URLSearchParams(window.location.search).get("p");
+
+      var storeLink = document.getElementById("storeLink");
+      var msg = document.getElementById("msg");
+      storeLink.href = STORE;
+
+      if (!code) {
+        msg.textContent = "Get the app to start solving.";
+        window.location.href = STORE;
+        return;
+      }
+
+      // Try to open the installed app; if we're still here shortly after, send the user to the
+      // Play Store. If the app opens, the page is backgrounded and we cancel the redirect.
+      var deepLink = "sudokututor://puzzle/" + encodeURIComponent(code);
+      var fallback = setTimeout(function () {
+        msg.textContent = "Don't have the app yet? Redirecting to Google Play…";
+        window.location.href = STORE;
+      }, 1500);
+
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) clearTimeout(fallback);
+      });
+
+      window.location.href = deepLink;
+    })();
+  </script>
+</body>
+</html>
