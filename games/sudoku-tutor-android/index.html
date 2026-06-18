@@ -15,16 +15,19 @@
     h1 { font-size: 1.6rem; margin: 0 0 0.5rem; }
     p { margin: 0.5rem 0; line-height: 1.5; color: #94a3b8; }
     a.button {
-      display: inline-block; margin-top: 1.25rem; padding: 0.75rem 1.25rem; border-radius: 999px;
-      background: #38bdf8; color: #0f172a; font-weight: 600; text-decoration: none;
+      display: inline-block; margin-top: 1rem; padding: 0.75rem 1.25rem; border-radius: 999px;
+      text-decoration: none; font-weight: 600;
     }
+    a.primary { background: #38bdf8; color: #0f172a; }
+    a.secondary { background: transparent; color: #38bdf8; }
   </style>
 </head>
 <body>
   <main>
     <h1>Sudoku Tutor</h1>
     <p id="msg">Opening your puzzle…</p>
-    <p><a id="storeLink" class="button" href="#">Get Sudoku Tutor on Google Play</a></p>
+    <p><a id="openLink" class="button primary" href="#">Open puzzle in app</a></p>
+    <p><a id="storeLink" class="button secondary" href="#">Get Sudoku Tutor on Google Play</a></p>
   </main>
   <script>
     (function () {
@@ -33,28 +36,44 @@
       var code = new URLSearchParams(window.location.search).get("p");
 
       var storeLink = document.getElementById("storeLink");
+      var openLink = document.getElementById("openLink");
       var msg = document.getElementById("msg");
       storeLink.href = STORE;
 
       if (!code) {
         msg.textContent = "Get the app to start solving.";
+        openLink.style.display = "none";
         window.location.href = STORE;
         return;
       }
 
-      // Try to open the installed app; if we're still here shortly after, send the user to the
-      // Play Store. If the app opens, the page is backgrounded and we cancel the redirect.
-      var deepLink = "sudokututor://puzzle/" + encodeURIComponent(code);
+      // Use an Android intent:// URL, not the bare sudokututor:// custom scheme. Chromium-based
+      // browsers — including Chrome and Facebook/Instagram in-app browsers — launch the installed
+      // app from intent:// and honor browser_fallback_url when it is not installed. A bare custom
+      // scheme is rejected by most in-app WebViews (ERR_UNKNOWN_URL_SCHEME), which is why a tapped
+      // link there used to dead-end on the Play Store even with the app installed.
+      var intentUrl =
+        "intent://puzzle/" + encodeURIComponent(code) +
+        "#Intent;scheme=sudokututor;package=" + PACKAGE +
+        ";S.browser_fallback_url=" + encodeURIComponent(STORE) + ";end";
+
+      // Manual escape hatch: some in-app browsers block *automatic* app launches but allow a
+      // user-initiated tap. Wire the button to the same intent URL.
+      openLink.href = intentUrl;
+
+      // Safety net for browsers that don't act on intent:// at all (rare on Android): if we're
+      // still here after a moment, send the user to the Play Store. If the app opens, the page is
+      // backgrounded and we cancel the redirect.
       var fallback = setTimeout(function () {
-        msg.textContent = "Don't have the app yet? Redirecting to Google Play…";
+        msg.textContent = "Don't have the app yet? Tap “Get Sudoku Tutor on Google Play”.";
         window.location.href = STORE;
-      }, 1500);
+      }, 2500);
 
       document.addEventListener("visibilitychange", function () {
         if (document.hidden) clearTimeout(fallback);
       });
 
-      window.location.href = deepLink;
+      window.location.href = intentUrl;
     })();
   </script>
 </body>
