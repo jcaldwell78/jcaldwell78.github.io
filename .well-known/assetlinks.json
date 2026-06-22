@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.github.jcaldwell78.sudoku",
       "sha256_cert_fingerprints": [
-        "A9:7C:29:B8:12:0D:43:08:01:0C:F3:9C:5C:8F:14:16:36:DF:15:F8:F2:0F:B5:85:AB:FF:D8:1B:E4:10:FC:B5"
+        "A9:7C:29:B8:12:0D:43:08:01:0C:F3:9C:5C:8F:14:16:36:DF:15:F8:F2:0F:B5:85:AB:FF:D8:1B:E4:10:FC:B5",
+        "95:CB:CA:AD:6B:D0:FF:C8:20:03:84:51:A9:25:6D:44:FB:90:D5:DF:76:66:A4:4B:1A:3F:03:B8:07:75:13:6C"
       ]
     }
   }
