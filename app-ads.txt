@@ -1,3 +1,5 @@
+OwnerDomain=jcaldwell78.github.io
+
 # AdMob
 google.com, pub-1857429939865732, DIRECT, f08c47fec0942fa0
 
